@@ -9,14 +9,14 @@
 using namespace std;
 
 void error(string s);
-int somma_num(vector<int> n, int quanti_num);
+double somma_num(vector<double> n, int quanti_num);
 
 int main(){
     
     try{
         int quanti_num = 0; // var dove salviamo quanti numeri del vector sommare
-        int numero = 0; // input numero
-        vector<int> numeri; // vector dove verranno salvati i numeri
+        double numero = 0; // input numero
+        vector<double> numeri; // vector dove verranno salvati i numeri
         
         cout << "Quanti numeri vuoi sommare?\n";
         cin >> quanti_num; // aggiorniamo quanti numeri
@@ -41,16 +41,18 @@ int main(){
                 error("Valore non valido");
             }
         }
-        int risultato = somma_num(numeri, quanti_num); // var che contiene risultato della somma
+        double risultato = somma_num(numeri, quanti_num); // var che contiene risultato della somma
         cout << "Il risultato della somma dei " << quanti_num << " primi numeri è: " << risultato << '\n';
         }
     
     
     catch(exception& e){
         cerr << "Error: " << e.what() << '\n';
+        return 1;
     }
     catch(...){
         cerr << "Errore sconosciuto!\n";
+        return 2;
     }
     return 0;
 }
@@ -59,7 +61,7 @@ void error(string s){
     throw runtime_error{s};
 }
 
-int somma_num(vector<int> n, int quanti_num){
+double somma_num(vector<double> n, int quanti_num){
     // funzione che restituisce la somma di quanti num nel vector
     // argomenti se vector vuoto errore
     // argomenti se quanti num > vector.size() errore
@@ -78,9 +80,9 @@ int somma_num(vector<int> n, int quanti_num){
     for(int i = 0; i< quanti_num; ++i){
         somma_d += n.at(i);
     }
-    int risultato = somma_d; // passeremo somma_d per controllare che il numero non sia troppo grande per un int
-    if(risultato != somma_d){
-        error("Valore troppo grande o errato");
-    }
-    return risultato; // restituiamo risultato
+    //int risultato = somma_d; // passeremo somma_d per controllare che il numero non sia troppo grande per un int
+    //if(risultato != somma_d){
+        //error("Valore troppo grande o errato");
+    //}
+    return somma_d; // restituiamo risultato
 }
