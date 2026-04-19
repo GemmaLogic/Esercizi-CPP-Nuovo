@@ -1,5 +1,5 @@
 //Esercizio 8, 9 pag 118
-// Principi e Pratiche di Programmazione in C++ di Bjarne Stroustrup
+// Principi e Tecniche di Programmazione in C++ di Bjarne Stroustrup
 // Lorenzo Gemma
 
 #include<iostream>
