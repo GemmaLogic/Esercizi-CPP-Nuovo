@@ -1,4 +1,4 @@
-//Esercizio 8, 9, 10 pag 118
+//Esercizio 8, 9 pag 118
 // Principi e Pratiche di Programmazione in C++ di Bjarne Stroustrup
 // Lorenzo Gemma
 
