@@ -1,7 +1,7 @@
 # 📘 C++ Percorso: Da Apprendista a Developer
 ### Repository di Lorenzo G. - Esercizi dal manuale di Bjarne Stroustrup
 
-Benvenuti nella mia "cassaforte" di codice. Questo repository documenta il mio percorso attraverso il libro **"Principi e Pratiche di Programmazione in C++"** del creatore del linguaggio, Bjarne Stroustrup. 
+Benvenuti nella mia "cassaforte" di codice. Questo repository documenta il mio percorso attraverso il libro **"Principi e Tecniche di Programmazione in C++"** del creatore del linguaggio, Bjarne Stroustrup. 
 
 Non si tratta solo di risolvere problemi, ma di imparare a scrivere codice robusto, sicuro e professionale.
 
