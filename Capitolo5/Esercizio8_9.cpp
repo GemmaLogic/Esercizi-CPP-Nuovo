@@ -1,6 +1,6 @@
 //Esercizio 8, 9 pag 118
 // Principi e Tecniche di Programmazione in C++ di Bjarne Stroustrup
-// Lorenzo Gemma
+// GemmaLogic
 
 #include<iostream>
 #include<vector>
