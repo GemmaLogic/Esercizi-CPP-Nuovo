@@ -11,23 +11,24 @@ using namespace std;
 int main(){
     try{
         vector<int> numeri; // salveremo i nostri numeri
-        int num_max = 0; // variabile a cui sommeremo il numero precedente
-        double controllo_num = 0; // inseriremo num_max per vedere se sta nel int
+        double prossimo = 0; // variabile a cui sommeremo il numero precedente
+        int controllo_num = 0; // inseriremo num_max per vedere se sta nel int
         numeri.push_back(1);
         numeri.push_back(1); // aggiungiamo  i primi due valori in modo da iniziare il ciclo
-        for(int i = 1; i<numeri.size(); ++i){
-            if(num_max != controllo_num){
+        for(int i = 1; prossimo == controllo_num ; ++i){
+            prossimo = double(numeri.at(i)) + numeri.at(i-1);
+            // eseguiamo una conversione in modo che la somma avvenga in double
+            controllo_num = prossimo; // inseriamo il double nell int per la verifica
+            if(prossimo != controllo_num){
+                // verifichiamo e se non sono uguali usciamo dal ciclo
                 break;
             }
-            num_max = 0; // resettiamola ad ogni giro
-            num_max = numeri.at(i) + numeri.at(i-1); // eseguiamo la somma
-            numeri.push_back(num_max); //poniamo in vector
-            controllo_num = num_max; // aggiorniamo il controllo
-            
-            
-            cout << numeri[numeri.size()-1] << ' ';
+            else{
+                // altrimenti inseriamo nel vector
+                numeri.push_back(prossimo);
+            }
         }
-        cout << "Il numero piu grande di Fibonacci che sta in un int è: " << num_max
+        cout << "Il numero piu grande di Fibonacci che sta in un int è: " << numeri[numeri.size()-1]
         << '\n';
         
     }
