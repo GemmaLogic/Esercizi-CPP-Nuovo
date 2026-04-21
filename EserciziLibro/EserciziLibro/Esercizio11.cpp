@@ -1,8 +1,6 @@
+//Esercizio 11 pag 118
 //
-//  Esercizio11.cpp
-//  EserciziLibro
-//
-//  Created by Lorenzo Gemma on 21/04/26.
-//
+// Principi e Tecniche di Programmazione in C++ di Bjarne Stroustrup
+// GemmaLogic
 
 #include <stdio.h>
