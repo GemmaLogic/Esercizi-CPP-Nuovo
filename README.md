@@ -29,13 +29,15 @@ Invece di scrivere un semplice algoritmo di somma, mi sono concentrato sulla **P
 
 ---
 Esercizi completati:** 11 (Trovare int piu grande Fibonacci)
+
+**Cosa ho imparato:**
+ La sfida principale è stata intercettare l'overflow prima che il dato venisse corrotto. Ho imparato che la precedenza degli operatori e il casting esplicito sono fondamentali per la sicurezza dei dati.
+
 - **Gestione dell'Integer Overflow** Per individuare il limite massimo della serie di Fibonacci rappresentabile in un int, ho implementato una tecnica di Narrowing Check.
 
 Type Promotion: Ho forzato la promozione esplicita degli operandi a double (static_cast<double>(a) + b) per eseguire il calcolo in uno spazio di memoria a 64-bit, evitando l'overflow silenzioso della CPU.
 
 Validazione: Il risultato viene poi confrontato con la sua "ombra" troncata in un intero; una divergenza tra i due valori segnala il superamento del limite fisico del tipo int.
-
-Sfide affrontate: La sfida principale è stata intercettare l'overflow prima che il dato venisse corrotto. Ho imparato che la precedenza degli operatori e il casting esplicito sono fondamentali per la sicurezza dei dati.
 
 ---
 
