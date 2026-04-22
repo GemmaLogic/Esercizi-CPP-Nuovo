@@ -14,8 +14,35 @@ void error(string s);
 int main(){
     
     try{
+        cout << "Trova il numero segreto di 4 cifre. se indovini numero e posizione: (toro) solo numero: (mucca) \n";
+        int temporanea = 0; // variabile in cui inseriremo input utente
+        vector<int> risposta; // salveremo l'input per poi confrontarlo con segreto
+        vector<int> segreto = {1,2,3,4}; // vector in cui è salvata la sequenza da trovare
+        bool in_funzione = true; // indica che il ciclo è in funzione
         
-        
+        while(in_funzione){
+            while(cin>>temporanea){
+                if(!cin){
+                    
+                    error("Valore non valido");
+                }
+                
+                else if(temporanea < 0 || temporanea > 9){
+                    cout << "Inserisci valore compreso tra 0 e 9. Riprova!";
+                    risposta.clear();
+                }
+                else if(risposta.size() == 4){
+                    break;
+                }
+                else{
+                    risposta.push_back(temporanea);
+                }
+                
+            }
+            for(int i: risposta){
+                cout << i << ' ';
+            }
+        }
     }
     
     catch(exception& e){
