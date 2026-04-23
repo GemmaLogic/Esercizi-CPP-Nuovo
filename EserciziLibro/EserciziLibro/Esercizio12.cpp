@@ -10,53 +10,81 @@
 using namespace std;
 
 void error(string s);
+void controllo_utente(vector<int>& risposta);
 
 int main(){
     
     try{
         cout << "Trova il numero segreto di 4 cifre. se indovini numero e posizione: (toro) solo numero: (mucca) \n";
-        int temporanea = 0; // variabile in cui inseriremo input utente
+        
         vector<int> risposta; // salveremo l'input per poi confrontarlo con segreto
         vector<int> segreto = {1,2,3,4}; // vector in cui è salvata la sequenza da trovare
         bool in_funzione = true; // indica che il ciclo è in funzione
         
         while(in_funzione){
-            while(cin>>temporanea){
-                if(!cin){
-                    
-                    error("Valore non valido");
-                }
-                
-                else if(temporanea < 0 || temporanea > 9){
-                    cout << "Inserisci valore compreso tra 0 e 9. Riprova!";
-                    risposta.clear();
-                }
-                else if(risposta.size() == 4){
-                    break;
-                }
-                else{
-                    risposta.push_back(temporanea);
-                }
-                
-            }
-            for(int i: risposta){
-                cout << i << ' ';
-            }
+            controllo_utente(risposta);
+            in_funzione = false;
         }
+        
+    }
+        
+        catch(exception& e){
+            cerr << "Error: " << e.what() << '\n';
+            return 1;
+        }
+        catch(...){
+            cerr << "Errore sconosciuto!\n";
+            return 2;
+        }
+        return 0;
     }
     
-    catch(exception& e){
-        cerr << "Error: " << e.what() << '\n';
-        return 1;
-    }
-    catch(...){
-        cerr << "Errore sconosciuto!\n";
-        return 2;
-    }
-    return 0;
-}
 
 void error(string s){
     
     throw runtime_error{s};
+}
+
+
+void controllo_utente(vector<int>& risposta){
+    
+    while(risposta.size() < 4){
+        int temporanea = 0; // variabile in cui inseriremo input utente
+        cin >> temporanea; // input
+        if(!cin){
+            // controlliamo che non venga immesso un input diverso
+            error("Valore non valido");
+        }
+        
+        else if(temporanea < 0 || temporanea > 9){
+            // se <0 o > 9 reiserire il valore
+            cout << "Inserisci valore compreso tra 0 e 9. Riprova!\n";
+            
+        }
+        
+        else{
+            bool duplicato = false; // interruttore per controllare se numero ripetuto
+            int num_mancanti = 4 - int(risposta.size()); // conta quanti numeri mancano nel vector
+            for(int i = 0; i < risposta.size(); ++i){
+                // controlliamo che i numeri siano diversi
+                if(risposta.at(i) == temporanea){
+                    // stampiamo
+                    cout << "Hai gia inserito " << risposta[i] << " immetti altri "
+                   << num_mancanti << " numeri\n";
+                    // se numero ripetuto interruttore true
+                    duplicato = true;
+                }
+                
+            }
+            if(duplicato == false){
+                // se interruttore è false inseriamo nel vector
+                risposta.push_back(temporanea); // inseriamo nel vector
+            }
+        }
+        
+        
+    }
+    for(int i: risposta){
+        cout << i << ' ';
+    }
 }
