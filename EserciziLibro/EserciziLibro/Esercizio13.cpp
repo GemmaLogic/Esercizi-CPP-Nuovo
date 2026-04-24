@@ -1,11 +1,13 @@
-//Esercizio 11 pag 118
-//Implementate un giochino di indovinelli chiamato (per qualche oscuro motivo) "Tori e Mucche". Il programma ha un vector di quattro numeri interi diversi nell'intervallo da 0 a 9 (ad esempio, 1234 ma non 1122) e il compito dell'utente è quello di scoprire questi numeri attraverso ripetute ipotesi. Supponiamo che il numero da indovinare sia 1234 e che l'utente provi con 1359; la risposta dovrebbe essere "1 toro e 1 mucca" perché l'utente ha indovinato una cifra (1) giusta e nella posizione giusta (un toro) e una cifra (3) giusta ma nella posizione sbagliata (una mucca). L'indovinello continua finché l'utente non ottiene quattro tori, cioè ha le quattro cifre corrette e nell'ordine corretto.
+//Esercizio 13 pag 118
+// esercizio 12: Implementate un giochino di indovinelli chiamato (per qualche oscuro motivo) "Tori e Mucche". Il programma ha un vector di quattro numeri interi diversi nell'intervallo da 0 a 9 (ad esempio, 1234 ma non 1122) e il compito dell'utente è quello di scoprire questi numeri attraverso ripetute ipotesi. Supponiamo che il numero da indovinare sia 1234 e che l'utente provi con 1359; la risposta dovrebbe essere "1 toro e 1 mucca" perché l'utente ha indovinato una cifra (1) giusta e nella posizione giusta (un toro) e una cifra (3) giusta ma nella posizione sbagliata (una mucca). L'indovinello continua finché l'utente non ottiene quattro tori, cioè ha le quattro cifre corrette e nell'ordine corretto.
+//Esercizio 13: lI programma è un po' noioso, perché la risposta è codificata nel programma. È possibile creare una versione in cui l'utente può giocare più volte (senza fermare e riavviare il programma) e ogni partita ha una nuova serie di quattro cifre. È possibile ottenere quattro cifre casuali chiamando il generatore di numeri casuali random_int (0,9) da PPP_support (e §4.7.5) per quattro volte. Noterete che il programma eseguito più volte sceglierà la stessa sequenza di quattro cifre a ogni avvio. Per evitare che ciò accada, chiedete all'utente di inserire un numero (qualsiasi numero) e chiamate seed (n), sempre da PPP_support, dove n è il numero inserito dall'utente prima di chiamare random_int(0,10). Questo n è chiamato seme, e semi diversi danno sequenze diverse di numeri casuali.
 // Principi e Tecniche di Programmazione in C++ di Bjarne Stroustrup
 // GemmaLogic
 
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -13,28 +15,33 @@ void error(string s);
 void controllo_utente(vector<int>& risposta);
 void trova_toro(const vector<int>& risp, const vector<int>& segr, int& toro);
 void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca);
+void genera_segreto(vector<int>& segr);
 int main(){
     
     try{
         cout << "Trova il numero segreto di 4 cifre. se indovini numero e posizione: (toro) solo numero: (mucca) \n";
         
         vector<int> risposta; // salveremo l'input per poi confrontarlo con segreto
-        vector<int> segreto = {1,2,3,4}; // vector in cui è salvata la sequenza da trovare
+        vector<int> segreto;; // vector in cui è salvata la sequenza da trovare
         bool in_funzione = true; // indica che il ciclo è in funzione
         int toro = 0; // salveremo toro
         int mucca = 0; //salveremo mucca
         
-        while(in_funzione){
-            
-            controllo_utente(risposta);
-            trova_toro(risposta, segreto, toro);
-            trova_mucca(risposta, segreto, mucca);
-            cout << "Hai trovato " << toro << " toro e " << mucca << " mucca\n";
-            if(toro == 4){
-                in_funzione = false;
-            }
-        }
         
+        while(in_funzione){
+            genera_segreto(segreto);
+            while(in_funzione){
+                
+                controllo_utente(risposta);
+                trova_toro(risposta, segreto, toro);
+                trova_mucca(risposta, segreto, mucca);
+                cout << "Hai trovato " << toro << " toro e " << mucca << " mucca\n";
+                if(toro == 4){
+                    break;
+                }
+            }
+            
+        }
     }
         
         catch(exception& e){
@@ -56,6 +63,7 @@ void error(string s){
 
 
 void controllo_utente(vector<int>& risposta){
+    cout << "Inserisci 4 int separati compresi tra 0 e 9 e non ripeterli\n";
     risposta.clear(); // resettiamo il vector ad ogni giro
     while(risposta.size() < 4){
         int temporanea = 0; // variabile in cui inseriremo input utente
@@ -122,6 +130,22 @@ void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca){
                 ++mucca; // incrementiamo mucca
             }
         }
+    }
+    
+}
+void genera_segreto(vector<int>& segr){
+    
+    cout << "Immetti un numero per generare il codice segreto\n";
+    int n = 0; // salveremo input utente
+    cin >> n; // input
+    
+    if(!cin){
+        error("Valore non valido\n");
+    }
+    default_random_engine engine(n);
+    uniform_int_distribution<int> distr(0,9);
+    for(int i = 0; i < 4; ++i){
+        segr.push_back(distr(engine));
     }
     
 }
