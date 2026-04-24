@@ -11,7 +11,8 @@ using namespace std;
 
 void error(string s);
 void controllo_utente(vector<int>& risposta);
-
+void trova_toro(const vector<int>& risp, const vector<int>& segr, int& toro);
+void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca);
 int main(){
     
     try{
@@ -20,10 +21,18 @@ int main(){
         vector<int> risposta; // salveremo l'input per poi confrontarlo con segreto
         vector<int> segreto = {1,2,3,4}; // vector in cui è salvata la sequenza da trovare
         bool in_funzione = true; // indica che il ciclo è in funzione
+        int toro = 0; // salveremo toro
+        int mucca = 0; //salveremo mucca
         
         while(in_funzione){
+            
             controllo_utente(risposta);
-            in_funzione = false;
+            trova_toro(risposta, segreto, toro);
+            trova_mucca(risposta, segreto, mucca);
+            cout << "Hai trovato " << toro << " toro e " << mucca << " mucca\n";
+            if(toro == 4){
+                in_funzione = false;
+            }
         }
         
     }
@@ -47,10 +56,11 @@ void error(string s){
 
 
 void controllo_utente(vector<int>& risposta){
-    
+    risposta.clear(); // resettiamo il vector ad ogni giro
     while(risposta.size() < 4){
         int temporanea = 0; // variabile in cui inseriremo input utente
         cin >> temporanea; // input
+
         if(!cin){
             // controlliamo che non venga immesso un input diverso
             error("Valore non valido");
@@ -64,13 +74,12 @@ void controllo_utente(vector<int>& risposta){
         
         else{
             bool duplicato = false; // interruttore per controllare se numero ripetuto
-            int num_mancanti = 4 - int(risposta.size()); // conta quanti numeri mancano nel vector
+            
             for(int i = 0; i < risposta.size(); ++i){
                 // controlliamo che i numeri siano diversi
                 if(risposta.at(i) == temporanea){
                     // stampiamo
-                    cout << "Hai gia inserito " << risposta[i] << " immetti altri "
-                   << num_mancanti << " numeri\n";
+                    cout << "Hai gia inserito " << risposta[i] << " sostituiscilo con un numero valido\n";
                     // se numero ripetuto interruttore true
                     duplicato = true;
                 }
@@ -79,6 +88,7 @@ void controllo_utente(vector<int>& risposta){
             if(duplicato == false){
                 // se interruttore è false inseriamo nel vector
                 risposta.push_back(temporanea); // inseriamo nel vector
+                
             }
         }
         
@@ -87,4 +97,31 @@ void controllo_utente(vector<int>& risposta){
     for(int i: risposta){
         cout << i << ' ';
     }
+}
+
+void trova_toro(const vector<int>& risp, const vector<int>& segr, int& toro){
+    // resettiamo toro ad ogni giro
+    // argomenti se num in risposta è uguale e nella stessa psoizione toro agg
+    toro = 0;
+    for(int i = 0; i < risp.size(); ++i){
+        // ciclo controlliamo sia posizione sia se sono uguali
+        if(risp.at(i) == segr.at(i)){
+            ++toro; // incrementiamo toro
+        }
+    }
+}
+
+void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca){
+    mucca = 0; // resettiamo mucca ad ognio giro
+    for(int i = 0; i < risp.size(); ++i){
+        // ciclo passiamo ogni elemento di risp
+        for(int x = 0; x < segr.size(); ++x){
+            // ciclo passiamo ogni elemento di segr
+            if(risp.at(i) == segr.at(x) && risp.at(i) != segr.at(i)){
+                // se elemento di risp è uguale a elemento di segr e non è nella stessa posizione
+                ++mucca; // incrementiamo mucca
+            }
+        }
+    }
+    
 }
