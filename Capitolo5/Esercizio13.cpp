@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <limits>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ void controllo_utente(vector<int>& risposta);
 void trova_toro(const vector<int>& risp, const vector<int>& segr, int& toro);
 void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca);
 void genera_segreto(vector<int>& segr);
+void termina_programma(bool& in_funzione);
 int main(){
     
     try{
@@ -40,7 +42,7 @@ int main(){
                     break;
                 }
             }
-            
+            termina_programma(in_funzione);
         }
     }
         
@@ -134,18 +136,85 @@ void trova_mucca(const vector<int>& risp, const vector<int>& segr, int& mucca){
     
 }
 void genera_segreto(vector<int>& segr){
+    segr.clear(); // ogni partita partirà con segr vuoto
     
     cout << "Immetti un numero per generare il codice segreto\n";
     int n = 0; // salveremo input utente
     cin >> n; // input
     
     if(!cin){
+        // errore se input diverso
         error("Valore non valido\n");
     }
-    default_random_engine engine(n);
-    uniform_int_distribution<int> distr(0,9);
-    for(int i = 0; i < 4; ++i){
-        segr.push_back(distr(engine));
+    else{
+        bool trovato = false; // interruttore true: numero gia presente in segr false: non presente
+        bool in_funzione = true; // interruttore che indica che il ciclo è in funzione
+        int temporanea = 0; // salveremo il valore "casuale"
+    default_random_engine engine(n); // chiamiamo il nostro motore e passiamo come seed n
+    uniform_int_distribution<int> distr(0,9); // diciamo al nostro distributore di generare numeri da 0 a 9
+        
+        while(in_funzione){
+            trovato = false; // resettiamo interruttore ad ogni giro
+            temporanea = distr(engine); // generiamo numero "casuale"
+            for(int i = 0; i < segr.size(); ++i){
+                // ciclo che passa in rassegna ogni elemento di segr
+                if(segr.at(i) == temporanea){
+                    // se elemento di segr è uguale al nostro numero
+                    trovato = true; // interruttore true e verra ripetuto tutto
+                    
+                }
+            }
+            if(trovato == false){
+                // se interruttore è false inseriamo nel vector segr
+                segr.push_back(temporanea);
+            }
+            if(segr.size() == 4){
+                // quando segr avra 4 elementi ciclo while finisce
+                in_funzione = false;
+            }
+        }
+
+    }
+    
+}
+
+
+
+// dare modo all utente che ogni fine partita se vuole rigiocare o terminare il programma
+
+void termina_programma(bool& in_funzione){
+    int num_giro = 0; // contatore giri
+    bool giro = true; // interruttore ciclo
+    char risposta = ' '; // salviamo l input utente
+    while(giro){
+        // finche ciclo in funzione possiamo scegliere se rigiocare
+        cin.clear(); // spegniamo errore nel cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // puliamo il cin
+    cout << "Vuoi giocare ancora? (y/n)\n";
+    
+    cin >> risposta; // input
+        switch (risposta) {
+            case 'y':
+                cout << "Rigiochiamo!\n";
+                giro = false; // usciamo
+                break;
+            case 'n':
+                cout << "Grazie per aver giocato!\n";
+                giro = false; // usciamo
+                in_funzione = false; // chiudiamo programma
+                break;
+                
+            default:
+                cout << "Valore non valido!\n";
+                break; // ripetiamo il ciclo
+        }
+        ++num_giro; // ad ogni giro di ciclo aumentiamo num_giri
+        if(num_giro >= 3){
+            // se num_giri è 3 o maggiore
+            cout << "Grazie per aver giocato!\n";
+            giro = false; //usciamo
+            in_funzione = false; // chiudiamo programma
+        }
     }
     
 }
