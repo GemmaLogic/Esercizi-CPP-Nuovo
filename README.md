@@ -52,6 +52,16 @@ Ho imparato a gestire piu input utente utilizzando una sola variabile locale tem
 nota: Nel prossimo esercizio verrà aggiunto un sistema di numeri casuali da trovare ad ogni partita.
 
 ---
+**Esercizi completati:** 13 (Modifica esercizio precedente con aggiunta di motore casuale e prompt termina programma)
+
+**Cosa ho imparato:**
+Ho imparato a generare numeri "casuali" in base ad un input utente (come richiesto dall'esercizio) e un sistema che chiede all'utente se vuole rigiocare o terminare il programma
+- **Engine** Uso di un motore per generare un numero in base ad un input utente.
+- **Distributore** Uso di un distributore per generare numeri nell'intervallo da 0 a 9.
+- **Adattamento** e stato creato un sistema che genera numeri mai uguali rispecchiando le condizioni dettate all'input utente.
+- **Termina Programma** e stato creata una funzione contenente un ciclo di massimo 3 tentativi in cui veniva chiesto all'utente se voleva rigiocare una partita o chiudere il programma.
+
+---
 ### 📂 [NOME NUOVO PROGETTO/CAPITOLO]
 *(Spazio per il prossimo aggiornamento...)*
 **Esercizi completati:** ...
